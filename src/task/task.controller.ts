@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
 } from '@nestjs/common';
@@ -32,6 +33,11 @@ export class TaskController {
   @Put(':id')
   update(@Param('id') id: string, @Body() dto: TaskDto): Promise<TaskDto> {
     return this.taskService.update(id, dto);
+  }
+
+  @Patch(':id')
+  putch(@Param('id') id: string): Promise<TaskDto> {
+    return this.taskService.patch(id);
   }
 
   @Delete(':id')

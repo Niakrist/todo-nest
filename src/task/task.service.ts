@@ -24,7 +24,7 @@ export class TaskService {
     return task;
   }
 
-  async create(dto: TaskDto): Promise<TaskDto> {
+  async create(dto: TaskDto): Promise<TaskEntity> {
     const task = await this.taskEntity.create(dto);
     await this.taskEntity.save(task);
     return task;
@@ -36,6 +36,13 @@ export class TaskService {
 
     // task.title = dto.title;
     // task.isDone = dto.isDone;
+    await this.taskEntity.save(task);
+    return task;
+  }
+
+  async patch(id: string): Promise<TaskEntity> {
+    const task = await this.findOneById(id);
+    task.isDone = !task.isDone;
     await this.taskEntity.save(task);
     return task;
   }
